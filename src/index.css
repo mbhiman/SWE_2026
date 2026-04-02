@@ -5,19 +5,39 @@
   --font-mono: "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", monospace;
 
   --color-brand-gold: #E8A42E;
-  --color-bg-main: #0d0d0d;
-  --color-bg-card: #111111;
-  --color-text-main: #e8e0d5;
-  --color-text-muted: #7a7068;
-  --color-border-subtle: #1e1e1e;
+  --color-bg-main: var(--bg-main);
+  --color-bg-card: var(--bg-card);
+  --color-header-from: var(--header-from);
+  --color-header-to: var(--header-to);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
 }
 
 :root {
-  background-color: var(--color-bg-main);
-  color: var(--color-text-main);
+  /* Dark Mode (Original) */
+  --bg-main: #0d0d0d;
+  --bg-card: #111111;
+  --header-from: #0d0d0d;
+  --header-to: #1a1008;
+  --text-main: #e8e0d5;
+  --text-muted: #7a7068;
+  --border-subtle: #1e1e1e;
+
+  background-color: var(--bg-main);
+  color: var(--text-main);
   font-family: var(--font-serif);
+  transition: background-color 0.3s ease;
 }
 
-body {
-  margin: 0;
+:root.light {
+  /* Refined Light Mode - Using "Paper" tones instead of pure white */
+  --bg-main: #fcfaf7;
+  --bg-card: #f5f2ee;
+  /* Slightly darker than bg to show depth */
+  --header-from: #f0ede8;
+  --header-to: #e5e0d8;
+  --text-main: #1a1612;
+  --text-muted: #6a645d;
+  --border-subtle: #dcd7cf;
 }

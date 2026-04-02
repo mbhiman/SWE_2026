@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/layout/Header";
 import Tabs from "./components/layout/Tabs";
 import ScheduleItem from "./components/schedule/ScheduleItem";
@@ -10,16 +10,30 @@ import { weeklyCheckIn, monthlyMilestones } from "./data/checkin";
 import ProgressBar from "./components/ui/ProgressBar";
 
 export default function App() {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const [activeTab, setActiveTab] = useState("schedule");
   const [activePhase, setActivePhase] = useState(1);
   const [checked, setChecked] = useState({});
+
+  // Sync theme with DOM and LocalStorage
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === "light") {
+      root.classList.add("light");
+    } else {
+      root.classList.remove("light");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === "dark" ? "light" : "dark");
 
   const toggleCheck = (i) => setChecked((p) => ({ ...p, [i]: !p[i] }));
   const score = Object.values(checked).filter(Boolean).length;
 
   return (
-    <div className="min-h-screen bg-bg-main text-text-main font-serif">
-      <Header />
+    <div className="min-h-screen bg-bg-main text-text-main font-serif transition-colors duration-300">
+      <Header theme={theme} toggleTheme={toggleTheme} />
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="max-w-[680px] mx-auto px-4 pt-6 pb-16">
